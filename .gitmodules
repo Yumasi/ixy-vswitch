@@ -1,0 +1,3 @@
+[submodule "ixy"]
+	path = extern/ixy
+	url = https://github.com/Yumasi/ixy.git
