@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.9)
-project(ixy-vswitch VERSION 1.0.0 LANGUAGES C)
+project(ixy-vswitch VERSION 1.0.0 LANGUAGES CXX)
 
 # Submodule handling
 find_package(Git QUIET)
@@ -22,3 +22,4 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/extern/ixy/CMakeLists.txt")
 endif()
 
 add_subdirectory(extern/ixy)
+add_subdirectory(src)
