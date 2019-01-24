@@ -31,5 +31,8 @@ int main(int argc, char *argv[])
     interfaces.push_back(Interface(argv[1]));
     interfaces.push_back(Interface(argv[2]));
 
+    while (true)
+        forward(interfaces[0], interfaces[1]);
+
     return 0;
 }
