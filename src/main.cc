@@ -28,8 +28,9 @@ int main(int argc, char *argv[])
     }
 
     std::vector<Interface> interfaces;
-    interfaces.push_back(Interface(argv[1]));
-    interfaces.push_back(Interface(argv[2]));
+    for (int i = 1; i < argc; ++i) {
+        interfaces.push_back(Interface(argv[i]));
+    }
 
     while (true)
         forward(interfaces[0], interfaces[1]);
