@@ -14,9 +14,15 @@ struct ConditionalIterator {
 
 
     ConditionalIterator() = default;
-    ConditionalIterator(Itr itr, Itr end, F condition): itr(itr), end(end), condition(condition) {}
+    ConditionalIterator(Itr itr, Itr end, F condition)
+        : itr(itr), end(end), condition(condition)
+    {
+        if (!condition(*itr))
+            operator++();
+    }
 
     bool operator!=(const ConditionalIterator& other) const { return other.itr != itr; }
+
     reference operator*() const { return *itr; }
     pointer operator->() const { return &(*itr); }
 
@@ -33,4 +39,4 @@ struct ConditionalIterator {
         operator++();
         return ret;
     }
-}
+};
