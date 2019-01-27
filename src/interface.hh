@@ -15,4 +15,6 @@ struct Interface
 
     Interface(char* pci_addr);
     ~Interface() = default;
+
+    bool operator==(const Interface& other) { return other.device == device; }
 };
