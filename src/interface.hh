@@ -17,4 +17,5 @@ struct Interface
     ~Interface() = default;
 
     bool operator==(const Interface& other) { return other.device == device; }
+    bool operator!=(const Interface& other) { return other.device != device; }
 };
