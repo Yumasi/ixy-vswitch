@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 extern "C" {
 #include "driver/device.h"
@@ -10,6 +11,8 @@ extern "C" {
 
 struct Interface
 {
+    static std::vector<Interface*> interfaces;
+
     ixy_device* device;
     device_stats stats;
 
