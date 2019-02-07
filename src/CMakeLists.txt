@@ -1,10 +1,12 @@
 set(SOURCES
   interface.cc
   main.cc
+  spinlock.cc
   )
 
 set(HEADERS
   interface.hh
+  spinlock.hh
   )
 
 add_executable(ixy-vswitch
