@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+#include <cstddef>
 #include <memory>
 #include <string>
 #include <vector>
@@ -15,6 +17,7 @@ struct Interface
 
     ixy_device* device;
     device_stats stats;
+    std::array<std::byte, 6> mac_addr;
 
     Interface(char* pci_addr);
     ~Interface() = default;
