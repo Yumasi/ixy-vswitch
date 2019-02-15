@@ -1,11 +1,12 @@
 set(SOURCES
+  action.cc
   interface.cc
   main.cc
-  spinlock.cc
   tx_queue.cc
   )
 
 set(HEADERS
+  action.hh
   interface.hh
   spinlock.hh
   tx_queue.hh
