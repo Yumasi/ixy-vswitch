@@ -28,8 +28,10 @@ public:
 
     ~TxQueue() = default;
 
+    void push(Interface* interface, pkt_buf* bufs[BATCH_SIZE]);
+    void pop();
+
 private:
     std::deque<TxAction> tx_actions;
-    Spinlock push_lock;
-    Spinlock pop_lock;
+    Spinlock lock;
 };
