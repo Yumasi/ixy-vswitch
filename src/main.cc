@@ -55,13 +55,12 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    std::vector<Interface> interfaces;
     for (int i = 1; i < argc; ++i) {
-        interfaces.push_back(Interface(argv[i]));
+        add_interface(argv[i]);
     }
 
     while (true)
-        flooding(interfaces);
+        flooding(get_interfaces());
 
     return 0;
 }
