@@ -1,3 +1,4 @@
+#include <functional>
 #include <iostream>
 #include <vector>
 
@@ -29,13 +30,11 @@ static void flooding(std::vector<Interface>& interfaces)
                     pkt_buf_free(bufs[i]);
                 }
             }
-
         }
     }
 }
 
-static void forward(Interface& int_1, Interface& int_2)
-{
+static void forward(Interface& int_1, Interface& int_2) {
     pkt_buf* bufs[BATCH_SIZE];
     uint32_t num_rx = ixy_rx_batch(int_1.device, 0, bufs, BATCH_SIZE);
     if (num_rx > 0) {
@@ -46,12 +45,12 @@ static void forward(Interface& int_1, Interface& int_2)
     }
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     if (argc < 3) {
         std::cerr << "Too few arguments." << std::endl;
-        std::cerr << "Usage: " << argv[0] << " <managed interfaces pci id lists>"
-                  << std::endl;
+        std::cerr << "Usage: " << argv[0]
+                  << " <managed interfaces pci id lists>" << std::endl;
 
         return 1;
     }

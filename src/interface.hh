@@ -1,15 +1,11 @@
 #pragma once
 
-#include <memory>
-#include <string>
-
 extern "C" {
 #include "driver/device.h"
 #include "stats.h"
 }
 
-struct Interface
-{
+struct Interface {
     ixy_device* device;
     device_stats stats;
 
