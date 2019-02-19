@@ -21,3 +21,5 @@ struct Interface {
 
 void add_interface(char* pci_addr);
 std::vector<Interface>& get_interfaces();
+
+void start_forwarding();
