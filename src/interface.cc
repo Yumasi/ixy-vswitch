@@ -2,8 +2,11 @@
 #include <array>
 #include <cstddef>
 #include <cstring>
+#include <functional>
+#include <iostream>
 #include <map>
 
+#include "conditional_iterator.hxx"
 #include "interface.hh"
 
 static constexpr size_t BATCH_SIZE = 32;
@@ -27,6 +30,23 @@ struct eth_frame {
 void add_interface(char* pci_addr) { interfaces.emplace_back(pci_addr); }
 std::vector<Interface>& get_interfaces() { return interfaces; }
 
+static void flood(pkt_buf* packet)
+{
+    for (Interface& i : interfaces) {
+        packet->ref_count = interfaces.size() - 1;
+
+        auto condition = [&](Interface& other) { return other != i; };
+        ConditionalIterator it(interfaces.begin(), interfaces.end(),
+                               std::ref(condition));
+
+        for (; it.itr != it.end; ++it) {
+            uint32_t num_tx = ixy_tx_batch(it->device, 0, &packet, 1);
+            if (!num_tx)
+                pkt_buf_free(packet);
+        }
+    }
+}
+
 static inline void forward(Interface& i)
 {
     pkt_buf* bufs[BATCH_SIZE];
@@ -45,7 +65,7 @@ static inline void forward(Interface& i)
         auto dest = std::find_if(fib.begin(), fib.end(), condition);
 
         if (dest == fib.end()) {
-            // FIXME: use flooding here
+            flood(bufs[pkt_idx]);
             return;
         }
 
