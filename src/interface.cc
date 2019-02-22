@@ -9,6 +9,12 @@
 #include "conditional_iterator.hxx"
 #include "interface.hh"
 
+#undef info
+#undef debug
+#undef warn
+#undef error
+#include "spdlog/spdlog.h"
+
 static constexpr size_t BATCH_SIZE = 32;
 
 using u32 = std::uint32_t;
@@ -27,10 +33,13 @@ struct eth_frame {
     byte ether_type[2];
 };
 
-void add_interface(char* pci_addr) { interfaces.emplace_back(pci_addr); }
+void add_interface(char* pci_addr)
+{
+    spdlog::info("Registering new interface at {}", pci_addr);
+    interfaces.emplace_back(pci_addr);
+}
+
 std::vector<Interface>& get_interfaces() { return interfaces; }
-
-
 
 static void flood(Interface& src, pkt_buf* packet)
 {
@@ -78,6 +87,7 @@ static inline void forward(Interface& i)
 
 void start_forwarding()
 {
+    spdlog::info("Forwarding started");
     while (true) {
         for (Interface& i : interfaces)
             forward(i);
