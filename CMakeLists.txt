@@ -21,5 +21,10 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/extern/ixy/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
+add_library(spdlog INTERFACE)
+target_include_directories(spdlog INTERFACE
+  "extern/spdlog/include"
+  )
+
 add_subdirectory(extern/ixy)
 add_subdirectory(src)

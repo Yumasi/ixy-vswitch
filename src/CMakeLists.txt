@@ -13,6 +13,9 @@ add_executable(ixy-vswitch
   ${HEADERS}
   )
 
-target_link_libraries(ixy-vswitch ixy)
+target_link_libraries(ixy-vswitch
+  ixy
+  spdlog
+  )
 
 set_property(TARGET ixy-vswitch PROPERTY CXX_STANDARD 17)
